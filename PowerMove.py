@@ -36,18 +36,17 @@ class OBJECT_OT_powermove(bpy.types.Operator):
         return {'FINISHED'}
 
     def modal(self, context, event):
-        # detect out-of-bounds in case switching areas, e.g. user moves to timeline
-        if event.mouse_x < context.area.x or event.mouse_x > context.area.x + context.area.width or event.mouse_y < context.area.y or event.mouse_y > context.area.y + context.area.height:
-           print('oob')
-           OBJECT_OT_powermove.is_running = False
-           return {'FINISHED'}
-
         # ESC will finish the operation and so will double-clicking
         if event.type == 'ESC':
             OBJECT_OT_powermove.is_running = False
             return {'FINISHED'}
 
         if event.type == 'LEFTMOUSE':
+            # detect out-of-bounds in case switching areas, e.g. user moves to timeline
+            if event.mouse_x < context.area.x or event.mouse_x > context.area.x + context.area.width or event.mouse_y < context.area.y or event.mouse_y > context.area.y + context.area.height:
+                OBJECT_OT_powermove.is_running = False
+                return {'FINISHED'}
+
             if (event.mouse_x, event.mouse_y) == self.prev_xy:
                 OBJECT_OT_powermove.is_running = False
                 return {'FINISHED'}
