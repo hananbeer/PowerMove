@@ -1,2 +1,1 @@
 import PowerMove
-print('init')
