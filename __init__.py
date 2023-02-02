@@ -1,0 +1,2 @@
+import PowerMove
+print('init')
